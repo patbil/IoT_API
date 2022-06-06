@@ -6,9 +6,11 @@ const server = http.createServer(app);
 
 // ROUTES - create
 const userRoutes = require('./api/routes/users.routes');
+//const Pir = require('./sensors/pir');
+const siuro = require('./api/sensors/servo.controler');
 
 // ROUTES - use
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
 
 // start listening for the server
 server.listen(3200, () => {

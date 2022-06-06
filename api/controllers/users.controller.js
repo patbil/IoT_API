@@ -1,28 +1,31 @@
-exports.create = async (req, res) => {
+exports.controller = {
+
+    async create(req, res) {
+
+    },
+
+    async login(req, res) {
+
+    },
+
+    async modify(req, res) {
+
+    },
+
+    async getAll(req, res) {
+
+    },
+
+    async getById(req, res) {
+
+    },
+
+    async remove(req, res) {
+
+    }
+
 
 }
-
-exports.login = async (req, res) => {
-
-}
-
-exports.modify = async (req, res) => {
-
-}
-
-exports.getAll = async (req, res) => {
-
-}
-
-exports.getById = async (req, res) => {
-
-}
-
-exports.remove = async (req, res) => {
-
-}
-
-
 
 
 

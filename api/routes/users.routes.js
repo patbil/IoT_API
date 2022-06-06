@@ -1,34 +1,27 @@
 const { Router } = require('express');
-const { Code } = require('../consts/resCode');
-
-const {
-    create,
-    login,
-    modify,
-    getAll,
-    getById,
-    remove
-} = require('../controllers/users.controller');
+const { Code } = require('../consts/responseCode');
+const { catchAsync } = require('../middleware/error');
+const userController = require('../controllers/users.controller');
 
 const router = Router();
 
-// Sign up a new user
-router.post('/singup', create);
-
-// The endpoint leading to the login method
-router.post('/signin', login);
-
-// Edit existing user
-router.post('/modify', modify);
+// Get all users
+router.get('/', catchAsync(userController.controller.getAll));
 
 // Get user details
-router.get('/:id', getAll);
+router.get('/:id', catchAsync(userController.controller.getById));
 
-// Get all users
-router.get('/', getById);
+// Sign up a new user
+router.post('/sing-up', catchAsync(userController.controller.create));
+
+// The endpoint leading to the login method
+router.post('/sign-in', catchAsync(userController.controller.login));
+
+// Edit existing user
+router.put('/:id', catchAsync(userController.controller.modify));
 
 // Delete user by id
-router.delete('/:id', remove);
+router.delete('/:id', catchAsync(userController.controller.remove));
 
 //NOT FOUND METHOD /users
 router.use((request, response) => response.status(Code.MethodNotAllowed).json({

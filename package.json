@@ -1,6 +1,14 @@
 {
   "dependencies": {
+    "@abandonware/i2c": "^0.2.4-3",
+    "@dariomannu/adafruit-pca9685": "^0.2.0",
+    "adafruit-i2c-pwm-driver-async": "^1.1.0",
     "express": "^4.18.1",
-    "nodemon": "^2.0.16"
+    "i2c-bus": "^5.2.2",
+    "nodemon": "^2.0.16",
+    "onoff": "^6.0.3",
+    "pca9685": "^5.0.0",
+    "raspi-pca9685-pwm": "^1.0.3",
+    "servo-pca9685": "^0.1.3"
   }
 }
