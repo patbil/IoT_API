@@ -3,6 +3,7 @@
     "@abandonware/i2c": "^0.2.4-3",
     "@dariomannu/adafruit-pca9685": "^0.2.0",
     "adafruit-i2c-pwm-driver-async": "^1.1.0",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "i2c-bus": "^5.2.2",
     "nodemon": "^2.0.16",

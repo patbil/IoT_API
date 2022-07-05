@@ -1,3 +1,5 @@
+
+
 exports.controller = {
 
     async getTemperature(req, res) {

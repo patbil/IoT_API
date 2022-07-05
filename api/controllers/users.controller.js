@@ -1,3 +1,5 @@
+const { catchAsync } = require('../middleware/error');
+
 exports.controller = {
 
     async create(req, res) {
@@ -13,7 +15,6 @@ exports.controller = {
     },
 
     async getAll(req, res) {
-
     },
 
     async getById(req, res) {

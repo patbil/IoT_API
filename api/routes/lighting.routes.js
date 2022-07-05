@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Code } = require('../consts/responseCode');
+const { Code } = require('../consts/response.code');
 const { catchAsync } = require('../middleware/error');
 const lightingController = require('../controllers/lighting.controller');
 
