@@ -1,3 +1,5 @@
+const lightingService = require('../services/lighting.services');
+
 exports.controller = {
 
     async getAll (req, res) {
