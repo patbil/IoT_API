@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { Code } = require('../consts/response.code');
 const { catchAsync } = require('../middleware/error');
-const doorsController = require('../controllers/doors.controller');
+const doorsController = require('../controllers/servo.controller');
 
 const router = Router();
 
@@ -9,11 +9,11 @@ const router = Router();
 router.get('/', catchAsync(doorsController.controller.getAll));
 
 // Open / close the door
-router.put('/:id', catchAsync(doorsController.controller.turn));
+router.put('/', catchAsync(doorsController.controller.turn));
 
 //NOT FOUND METHOD in endpoint /doors
 router.use((req, res) => res.status(Code.MethodNotAllowed).json({
-    message: 'The requested method was not found in the endpoint /doors'
+    message: 'The requested method was not found in the endpoint /servo'
 }));
 
 module.exports = router;

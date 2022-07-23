@@ -6,10 +6,10 @@ const lightController = require('../controllers/light.controller');
 const router = Router();
 
 //Get the current light intensity
-router.get('/', catchAsync(lightController.controller.getLx));
+router.get('/', catchAsync(lightController.controller.getInfo));
 
-// Set the maximum value of the light intensity
-router.put('/', catchAsync(lightController.controller.setMax));
+// Turn on the light sensor off
+router.put('/', catchAsync(lightController.controller.turn));
 
 //NOT FOUND METHOD in endpoint /light
 router.use((req, res) => res.status(Code.MethodNotAllowed).json({

@@ -17,12 +17,6 @@ router.get('/temperature/stats', catchAsync(airController.controller.getTemperat
 // Get data for humadity statistics
 router.get('/humidity/stats', catchAsync(airController.controller.getHumidityStats));
 
-// Set max humidity
-router.put('/temperature', catchAsync(airController.controller.setMaxTemperature));
-
-// Set max temperature
-router.put('/humidity', catchAsync(airController.controller.setMaxHumidity));
-
 //NOT FOUND METHOD in endpoint /air
 router.use((req, res) => res.status(Code.MethodNotAllowed).json({
     method: 'The requested method was not found in the endpoint /air'

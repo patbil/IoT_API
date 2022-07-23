@@ -12,10 +12,10 @@ router.get('/', catchAsync(lightingController.controller.getAll))
 router.put('/', catchAsync(lightingController.controller.turn));
 
 // Turn on/off all the light outside
-router.put('/allOutside', catchAsync(lightingController.controller.turnAllOutside));
+router.put('/outside', catchAsync(lightingController.controller.turnAllOutside));
 
 // Turn on/off all the light inside
-router.put('/allInside', catchAsync(lightingController.controller.turnAllInside));
+router.put('/inside', catchAsync(lightingController.controller.turnAllInside));
 
 //NOT FOUND METHOD in endpoint /lighting
 router.use((req, res) => res.status(Code.MethodNotAllowed).json({

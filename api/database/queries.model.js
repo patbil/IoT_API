@@ -34,7 +34,7 @@ exports.twoParams = async (q, data) => {
         connection.commit();
         return result[0];
     } catch (error) {
-        errorlog.error(error);
+        console.error(error);
     } finally {
         if (connection) connection.release();
     }
