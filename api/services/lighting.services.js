@@ -1,6 +1,6 @@
 const queriesModel = require('../database/queries.model');
 
-// Get the current lighting state
+// Get info about the current state of the lighting
 function getInfo() {
     const query = "SELECT * FROM Lights";
     return queriesModel.oneParams(query);

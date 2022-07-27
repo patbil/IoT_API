@@ -1,14 +1,15 @@
 const i2cBus = require("i2c-bus");
 const Pca9685Driver = require("pca9685").Pca9685Driver;
+const { getInfo } = require("../services/servo.services");
 
-let PWM = null; // Kepp device in variable
+let PWM = null; // Keep device in variable
 
 // Initialize the device (servo driver) on the I2C bus
 init = async () => {
     PWM = new Pca9685Driver({
         i2c: i2cBus.openSync(1),
         address: 0x40,
-        frequency: 650,
+        frequency: 50,
         debug: false
     }, (err) => {
         if (err) {
@@ -17,10 +18,16 @@ init = async () => {
         }
         console.log('PCA9865 - Initialization done.');
     });
+
+    // Set the initial states of the servos based on the database
+    const result = await getInfo();
+    result.forEach(el => {
+        changeStateServo(el);
+    });
 }
 
 // Change state servo
-changeState = (data) => {
+changeStateServo = (data) => {
     if (data.state) {
         PWM.setPulseLength(data.address, data.rangeOn);
     } else {
@@ -28,4 +35,4 @@ changeState = (data) => {
     }
 }
 
-module.exports = { init, changeState }
+module.exports = { init, changeStateServo }

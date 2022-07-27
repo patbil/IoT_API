@@ -7,11 +7,11 @@ exports.controller = {
     // Get the current sensor status
     async getInfo(req, res) {
         const result = await getInfo();
-        if (result) {
+        if (result.length) {
             return res.status(Code.Success).json(result);
         } else {
-            return res.status(Code.ServerError).json({
-                message: 'Something went wrong. Please try again in a few moments.'
+            return res.status(Code.NotFound).json({
+                message: 'Resource not found.'
             });
         }
     },

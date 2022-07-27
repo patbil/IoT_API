@@ -6,7 +6,7 @@ const lightController = require('../controllers/light.controller');
 const router = Router();
 
 //Get the current light intensity
-router.get('/', catchAsync(lightController.controller.getInfo));
+router.get('/state', catchAsync(lightController.controller.getInfo));
 
 // Turn on the light sensor off
 router.put('/', catchAsync(lightController.controller.turn));

@@ -6,7 +6,7 @@ const alarmController = require('../controllers/alarm.controller');
 const router = Router();
 
 // Get information on the current state of the alarm
-router.get('/status', catchAsync(alarmController.controller.getInfo));
+router.get('/state', catchAsync(alarmController.controller.getInfo));
 
 // Turn on/off alarm
 router.put('/', catchAsync(alarmController.controller.turn));

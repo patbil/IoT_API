@@ -1,14 +1,15 @@
 const queriesModel = require('../database/queries.model');
 
-exports.service = {
-
-    getSensor(){
-        const query = `SELECT * FROM Sensors WHERE name = 'Servo'`;
-        return queriesModel.oneParams(query);
-    },
-
-    getAll(){
-        const query = `SELECT * FROM `
-    }
-
+// Get info about the current state of the servos
+function getInfo(){
+    const query = `SELECT * FROM Servos`;
+    return queriesModel.oneParams(query);
 }
+
+// Update the servo state
+function update(address, state){
+    const query = `UPDATE Servos SET state = ${state} WHERE address = ${address}`;
+    return queriesModel.oneParams(query);
+}
+
+module.exports = { getInfo, update }

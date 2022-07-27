@@ -1,11 +1,11 @@
 const { Gpio } = require("onoff");
-const { getAll, turnOnBuzzer } = require("../services/alarm.services");
+const { getInfo, turnOnBuzzer } = require("../services/alarm.services");
 let pir, buzzer;
 
 init = async () => {
-    const result = await getAll();
+    const result = await getInfo();
 
-    await result.forEach(el => {
+    result.forEach(el => {
         if (el.name === 'Buzzer') {
             buzzer = new Gpio(el.address, 'out', 'both');
             buzzer.writeSync(el.state);
@@ -17,6 +17,8 @@ init = async () => {
             }
         }
     });
+
+    console.log("Alarm devices have been initialized");
 }
 
 // Turn on motion sensor listening

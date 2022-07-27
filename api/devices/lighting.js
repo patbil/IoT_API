@@ -17,8 +17,8 @@ init = async () => {
 }
 
 // Change the state of the GPIO pin based on the location and state sent by the user.
-changeState = (data) => {
-    lights[data.name].writeSync(data.state);
+changeStateLighting = (data) => {
+    lights[data.name].writeSync(Number(data.state));
 }
 
-module.exports = { init, changeState }
+module.exports = { init, changeStateLighting }

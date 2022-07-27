@@ -1,7 +1,7 @@
 const queriesModel = require('../database/queries.model');
 
 // Get data on alarm sensors
-function getAll(){
+function getInfo(){
     const query = `SELECT * FROM Sensors WHERE name = 'Pir' OR name = 'Buzzer';`;
     return queriesModel.oneParams(query);
 }
@@ -25,4 +25,4 @@ function turnOff(){
 }
 
 
-module.exports = { getAll, turnOnPir, turnOnBuzzer, turnOff }
+module.exports = { getInfo, turnOnPir, turnOnBuzzer, turnOff }

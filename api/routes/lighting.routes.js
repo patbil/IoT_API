@@ -6,7 +6,7 @@ const lightingController = require('../controllers/lighting.controller');
 const router = Router();
 
 // Get all information about lighting from the database - id, places
-router.get('/', catchAsync(lightingController.controller.getAll))
+router.get('/state', catchAsync(lightingController.controller.getInfo))
 
 // Turn on/off the light
 router.put('/', catchAsync(lightingController.controller.turn));

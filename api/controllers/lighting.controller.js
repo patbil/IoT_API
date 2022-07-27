@@ -7,11 +7,11 @@ exports.controller = {
     // Get info about the current state of lights
     async getInfo(req, res) {
         const result = await getInfo();
-        if (result) {
+        if (result.length) {
             return res.status(Code.Success).json(result);
         } else {
-            return res.status(Code.ServerError).json({
-                message: 'Something went wrong. Please try again in a few moments.'
+            return res.status(Code.NotFound).json({
+                message: 'Resource not found.'
             });
         }
     },
@@ -19,11 +19,12 @@ exports.controller = {
     // Turn on one light
     async turn(req, res) {
         const data = req.body;
-        await dev.changeState(data);
+        console.log(data);
+        await dev.changeStateLighting(data);
 
         const result = await update(data.name, data.state);
         if (result.affectedRows) {
-            return res.status(Code.Success).json('Sukces');
+            return res.status(Code.Success).json('The lighting has modified.');
         } else {
             return res.status(Code.ServerError).json({
                 message: 'Something goes wrong. Please try again in a few moments.'
@@ -37,7 +38,7 @@ exports.controller = {
         const result = await getInfo();
 
         result.filter(el => el.location === 'out').forEach(async (el) => {
-            dev.changeState({ name: el.name, state: val });
+            dev.changeStateLighting({ name: el.name, state: val });
             await update(el.name, val);
         });
 
@@ -50,7 +51,7 @@ exports.controller = {
         const result = await getInfo();
 
         result.filter(el => el.location === 'in').forEach(async (el) => {
-            dev.changeState({ name: el.name, state: val });
+            dev.changeStateLighting({ name: el.name, state: val });
             await update(el.name, val);
         });
 
