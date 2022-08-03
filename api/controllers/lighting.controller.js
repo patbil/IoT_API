@@ -19,7 +19,6 @@ exports.controller = {
     // Turn on one light
     async turn(req, res) {
         const data = req.body;
-        console.log(data);
         await dev.changeStateLighting(data);
 
         const result = await update(data.name, data.state);

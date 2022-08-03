@@ -28,7 +28,7 @@ turnOnPir = () => {
             throw err;
         }
 
-        buzzer.writeSync(Number(!val));
+        buzzer.writeSync(0);
         console.log('Value from PIR: ', Boolean(val));
 
         // Update record in database
