@@ -12,4 +12,14 @@ function pushHumidity(data){
     return queriesModel.twoParams(query, [Object.values(data)]);
 }
 
-module.exports = { pushTemperature, pushHumidity }
+function getHumidityStats(start, end) {
+    const query = `SELECT * FROM Humidity WHERE timestamp BETWEEN ${start} AND ${end}`;
+    return queriesModel.oneParams(query);
+}
+
+function getTemperatureStats(start, end) {
+    const query = `SELECT * FROM Temperature WHERE timestamp BETWEEN ${start} AND ${end}`;
+    return queriesModel.oneParams(query);
+}
+
+module.exports = { pushTemperature, pushHumidity, getTemperatureStats, getHumidityStats }
