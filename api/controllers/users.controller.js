@@ -4,7 +4,7 @@ const { getAll, getById, removeUser } = require('../services/users.services');
 exports.controller = {
 
     async create(req, res) {
-
+console.log("s")
     },
 
     async login(req, res) {
