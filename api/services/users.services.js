@@ -12,6 +12,12 @@ function getById(id){
     return queriesModel.oneParams(query);
 }
 
+// Create new user
+function createUser(data){
+    const query = `INSERT INTO Users (name, surname, username, email, password, role) VALUES ?`;
+    return queriesModel.twoParams(query, [data]);
+}
+
 // Remove the user with id
 function removeUser(id){
     const query = `DELETE FROM Users WHERE id = ${id}`;
@@ -21,7 +27,7 @@ function removeUser(id){
 // function update user by id
 function updateUser(data, id){
     const query = `UPDATE Users SET ? WHERE id = ${id}`;
-    return queriesModel.twoParams(data, id); 
+    return queriesModel.twoParams(query, data); 
 }
 
-module.exports = { getAll, getById, removeUser }
+module.exports = { getAll, getById, removeUser, createUser, updateUser }

@@ -12,7 +12,7 @@ router.get('/', catchAsync(userController.controller.getAll));
 router.get('/:id', catchAsync(userController.controller.getById));
 
 // Sign up a new user
-router.post('/sing-up', catchAsync(userController.controller.create));
+router.post('/sign-up', catchAsync(userController.controller.create));
 
 // The endpoint leading to the login method
 router.post('/sign-in', catchAsync(userController.controller.login));

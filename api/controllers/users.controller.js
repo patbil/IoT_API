@@ -1,10 +1,23 @@
 const { Code } = require('../consts/response.code');
-const { getAll, getById, removeUser } = require('../services/users.services');
+const { hashPassword } = require('../helper/password');
+const { getAll, getById, removeUser, createUser, updateUser } = require('../services/users.services');
 
 exports.controller = {
 
+    // Create new user
     async create(req, res) {
-console.log("s")
+        req.body.password = await hashPassword(req.body.password);
+        delete req.body.password_confirm;
+        const result = await createUser(Object.values(req.body));
+        if (result.affectedRows) {
+            return res.status(Code.Success).json({
+                message: 'The user has been created.'
+            });
+        } else {
+            return res.status(Code.ServerError).json({
+                message: 'Something went wrong. Please try again in a few moments.'
+            });
+        }
     },
 
     async login(req, res) {
@@ -12,7 +25,19 @@ console.log("s")
     },
 
     async modify(req, res) {
+        delete req.body.password_confirm;
+        (req.body.password) ? req.body.password = await hashPassword(req.body.password) : delete req.body.password;
 
+        const result = await updateUser(req.body, req.params.id);
+        if (result.changedRows) {
+            res.status(Code.Success).json({
+                message: 'The user has been updated.'
+            });
+        } else {
+            res.status(Code.Conflict).json({
+                message: 'Something went wrong. Please try again in a few moments.'
+            });
+        }
     },
 
     // Get all users 
@@ -45,7 +70,7 @@ console.log("s")
         const { id } = req.params;
         const result = await removeUser(id);
 
-        if(result.affectedRows){
+        if (result.affectedRows) {
             return res.status(Code.Success).json({
                 message: 'The resource has been deleted'
             });
@@ -55,8 +80,6 @@ console.log("s")
             });
         }
     }
-
-
 }
 
 
