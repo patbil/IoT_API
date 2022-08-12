@@ -6,5 +6,5 @@ exports.hashPassword = async (pass) => {
 }
 
 exports.compare = (pass, passDB) => {
-    return bcrypt.compare(pass, passDB);
+    return bcrypt.compareSync(pass, passDB, false);
 }

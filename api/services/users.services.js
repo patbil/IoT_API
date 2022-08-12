@@ -30,4 +30,9 @@ function updateUser(data, id){
     return queriesModel.twoParams(query, data); 
 }
 
-module.exports = { getAll, getById, removeUser, createUser, updateUser }
+function userExist(email){
+    const query = `SELECT id, name, surname, username, email, password, role FROM Users WHERE email = '${email}'`;
+    return queriesModel.oneParams(query);
+}
+
+module.exports = { getAll, getById, removeUser, createUser, updateUser, userExist }

@@ -5,6 +5,7 @@ exports.Code = Object.freeze({
     Success: 200,                          // Success
     Created: 201,                          // The document has been saved on the server    
     BadRequest: 400,                       // Invalid query
+    Unauthorized: 401,                     // Unauthorized 
     NotFound: 404,                         // Not Found
     MethodNotAllowed: 405,                 // The method contained in the request is not allowed 
     Conflict: 409,                         // Conflict, resource exists

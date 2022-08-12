@@ -1,6 +1,7 @@
 const { Code } = require('../consts/response.code');
-const { hashPassword } = require('../helper/password');
-const { getAll, getById, removeUser, createUser, updateUser } = require('../services/users.services');
+const { hashPassword, compare } = require('../helper/password');
+const { getAll, getById, removeUser, createUser, updateUser, userExist } = require('../services/users.services');
+const jwt = require("jsonwebtoken");
 
 exports.controller = {
 
@@ -21,7 +22,35 @@ exports.controller = {
     },
 
     async login(req, res) {
-
+        const { email, password } = req.body;
+        const user = await userExist(email);
+        console.log(user);
+        if (user.length) {
+            const comparison = compare(password, user.at(0).password);
+            if (comparison) {
+                const userDetails = (({ id, name, surname, role }) => ({ id, name, surname, role }))(user.at(0));
+                const token = jwt.sign({
+                    userId: userDetails.id
+                },
+                    process.env.TOKEN_KEY,
+                    {
+                        expiresIn: '2h'
+                    });
+                return res.status(Code.Success).json({
+                    token: token,
+                    expiresIn: 7200,
+                    user: userDetails
+                });
+            } else {
+                res.status(Code.Unauthorized).json({
+                    message: "Invalid email or password"
+                });
+            }
+        } else {
+            res.status(Code.Unauthorized).json({
+                message: "Invalid email or password"
+            });
+        }
     },
 
     async modify(req, res) {
