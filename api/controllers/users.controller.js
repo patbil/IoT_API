@@ -24,7 +24,6 @@ exports.controller = {
     async login(req, res) {
         const { email, password } = req.body;
         const user = await userExist(email);
-        console.log(user);
         if (user.length) {
             const comparison = compare(password, user.at(0).password);
             if (comparison) {

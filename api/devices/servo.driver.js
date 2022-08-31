@@ -1,6 +1,6 @@
 const i2cBus = require("i2c-bus");
 const Pca9685Driver = require("pca9685").Pca9685Driver;
-const { getInfo } = require("../services/servo.services");
+const { getInfo, getBlindState, update } = require("../services/servo.services");
 
 let PWM = null; // Keep device in variable
 
@@ -24,15 +24,32 @@ init = async () => {
     result.forEach(el => {
         changeStateServo(el);
     });
+
+    // Light detection signal socket - close the blind
+    process.on('SIGBLIND', () => {
+        closeBlind();
+    });
 }
 
 // Change state servo
 changeStateServo = (data) => {
     if (data.state) {
-        PWM.setPulseLength(data.address, data.rangeOn);
-    } else {
         PWM.setPulseLength(data.address, data.rangeOff);
+    } else {
+        PWM.setPulseLength(data.address, data.rangeOn);
     }
+}
+
+// Close the blind if light is detected
+closeBlind = async () => {
+    const result = await getBlindState();
+    const blind = result.at(0);
+    if (!blind.state) {
+        blind.state = true;
+        changeStateServo(blind);
+        update(blind.address, 1);
+    }
+    return;
 }
 
 module.exports = { init, changeStateServo }

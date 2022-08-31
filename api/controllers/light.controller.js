@@ -27,5 +27,6 @@ exports.controller = {
                 message: 'Something went wrong. Please try again in a few moments.'
             });
         }
-    }
+    },
+
 }

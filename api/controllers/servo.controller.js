@@ -19,9 +19,15 @@ exports.controller = {
     // Change servo state
     async turn(req, res) {
         const data = req.body;
-        await dev.changeStateServo(data);
 
+        // If the servo name is a gateway, send a blinking light
+        if(data.name === 'Brama'){
+            process.emit('SIGTOLG') // Turn On Light Gate
+        }
+
+        await dev.changeStateServo(data);
         const result = await update(data.address, data.state);
+
         if (result.affectedRows) {
             return res.status(Code.Success).json("The servo has modified.")
         } else {

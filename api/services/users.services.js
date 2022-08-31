@@ -2,13 +2,13 @@ const queriesModel = require('../database/queries.model');
 
 // Get all users from database
 function getAll() {
-    const query = `SELECT * FROM Users`;
+    const query = `SELECT id, name, surname, username, email, role FROM Users`;
     return queriesModel.oneParams(query);
 }
 
 // Get user by id
 function getById(id){
-    const query = `SELECT * FROM Users WHERE id = ${id}`;
+    const query = `SELECT id, name, surname, username, email, role FROM Users WHERE id = ${id}`;
     return queriesModel.oneParams(query);
 }
 

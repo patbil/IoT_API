@@ -1,27 +1,34 @@
 const { Gpio } = require("onoff");
-const { getInfo, update } = require("../services/light.services");
-let sensor;
+const { getInfo } = require("../services/light.services");
+let sensor, lastTimeChanged = 0, timeout = 60000;
 
 init = async () => {
     const result = await getInfo(); // get info from database
-    sensor = new Gpio(result.at(0).address, 'in', 'rising', {debounceTimeout: 10}); // new Gpio object - return only true (if detect)
+    sensor = new Gpio(result.at(0).address, 'in', 'rising'); // new Gpio object - return only true (if detect)
 
     console.log('Light sensor initialization successful.');
 
     // Observe if the user allowed it / if the state is true
-    if (result.at(0).state) {    
+    if (result.at(0).state) {
         turnOnSensor();
     }
 }
 
 // Watch the values sent by the sensor
 turnOnSensor = () => {
-     sensor.watch(async (err, val) => {
+    sensor.watch(async (err, val) => {
         if (err) {
             throw err;
         }
 
-        console.log('Value from light sensor: ', Boolean(val));
+        const currentTime = Date.now();
+        if (lastTimeChanged > (currentTime - timeout)) {
+            return;
+        } else {
+            lastTimeChanged = currentTime;
+            process.emit('SIGBLIND'); // Send a signal to close the blind
+            console.log('Value from light sensor: ', Boolean(val));
+        }
     });
 }
 
